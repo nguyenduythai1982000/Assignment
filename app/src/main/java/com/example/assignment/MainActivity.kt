@@ -6,57 +6,66 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.widget.SearchView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.assignment.adapter.RecyclerAdapter
+import com.example.assignment.data.City
 import com.example.assignment.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityMainBinding
-    private lateinit var adapter: ArrayAdapter<String>
+    // view binding for the activity
+    private var _binding: ActivityMainBinding? = null
+    private val binding get() = _binding!!
 
-    val cityList =
-        listOf(
-            "America",
-            "India",
-            "Nepal",
-            "China",
-            "Sri Lanka",
-            "South Africa",
-            "Bangladesh",
-            "England",
-            "Bhutan",
-            "Finland",
-            "Greenland"
-        )
-
+    // create reference to the adapter and the list
+    // in the list pass the model of Language
+    private lateinit var rvAdapter: RecyclerAdapter
+    private lateinit var countryList: List<City>
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setupListView()
-        setupSearchView()
+        // load data to language list
+        loadLanguage()
+
+        // create  layoutManager
+        val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(this)
+
+        // pass it to rvLists layoutManager
+        binding.recyclerView.layoutManager = layoutManager
+
+        // initialize the adapter,
+        // and pass the required argument
+        rvAdapter = RecyclerAdapter(countryList.toMutableList())
+
+        // attach adapter to the recycler view
+        binding.recyclerView.adapter = rvAdapter
     }
-    private fun setupListView() {
-        adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, cityList)
-        binding.listView.adapter = adapter
 
+    // add items to the list manually in our case
+    private fun loadLanguage() {
+        countryList = listOf(
+            City("America"),
+            City("London"),
+            City("Brazil"),
+            City("Germany"),
+            City("Japan"),
+            City("Korea"),
+            City("Thailand"),
+            City("Cambodia"),
+            City("Italy"),
+            City("Belgium"),
+            City("France"),
+
+        )
     }
 
-    private fun setupSearchView() {
-        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
-            android.widget.SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(p0: String?): Boolean {
-                val isMatchFound = cityList.contains(p0)
-                val msg = if (isMatchFound) "Found: $p0" else getString(R.string.no_match)
-                Toast.makeText(this@MainActivity, msg, Toast.LENGTH_SHORT).show()
-                return false
-            }
-
-            override fun onQueryTextChange(p0: String?): Boolean {
-                adapter.filter.filter(p0)
-                return false
-            }
-        })
+    // on destroy of view make
+    // the binding reference to null
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
 
