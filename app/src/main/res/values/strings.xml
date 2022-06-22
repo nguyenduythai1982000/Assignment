@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Assignment</string>
     <string name="no_match">No city found</string>
+    <string name="city_name">City Name</string>
+    <string name="city_view">City view</string>
+    <string name="_18_c">18°C</string>
+    <string name="current_weather">Current weather</string>
+    <string name="humidity">Humidity</string>
+    <string name="temperature">Temperature</string>
 </resources>
