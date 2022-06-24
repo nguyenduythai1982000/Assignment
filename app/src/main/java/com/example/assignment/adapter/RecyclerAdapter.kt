@@ -1,33 +1,27 @@
 package com.example.assignment.adapter
 
-import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
-import com.example.assignment.model.City
-import com.example.assignment.databinding.CardLayoutBinding
+import com.example.assignment.model.WeatherModel
 
-class RecyclerAdapter(var countryList: MutableList<City>) :
-    RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
-    inner class ViewHolder(val binding: CardLayoutBinding) : RecyclerView.ViewHolder(binding.root)
+class RecyclerAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private var myData: List<WeatherModel> = ArrayList()
+    fun setData(myData: LiveData<WeatherModel>){
 
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerAdapter.ViewHolder {
-        val binding = CardLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        with(holder){
-            with(countryList[position]){
-                binding.itemTitle.text=this.name
-            }
-        }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        TODO()
+    }
 
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        TODO()
     }
 
     override fun getItemCount(): Int {
-        return countryList.size
-
+        return myData.size
     }
+
 
 }
