@@ -1,17 +1,14 @@
 package com.example.assignment
 
 import android.os.Bundle
-import android.widget.ArrayAdapter
-import android.widget.ListView
-import android.widget.SearchView
-import android.widget.Toast
+import android.widget.*
+import android.widget.Toast.LENGTH_LONG
 import androidx.appcompat.app.AppCompatActivity
-
 
 class MainActivity : AppCompatActivity() {
     // on below line we are
     // creating variables for listview
-    lateinit var City: ListView
+    lateinit var city: ListView
 
     // creating array adapter for listview
     lateinit var listAdapter: ArrayAdapter<String>
@@ -20,44 +17,46 @@ class MainActivity : AppCompatActivity() {
     lateinit var cityList: ArrayList<String>
 
     // creating variable for searchview
-    lateinit var searchView: SearchView
+    lateinit var searchView: androidx.appcompat.widget.SearchView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         // initializing variables of list view with their ids.
-        City = findViewById(R.id.recyclerView)
-        searchView = findViewById(R.id.searchView)
+        city = findViewById(R.id.recyclerView)
+        searchView = findViewById(R.id.idSearchView)
 
         // initializing list and adding data to list
-        cityList = arrayListOf(
-            "New York",
-            "London",
-            "Manchester",
-            "Tokyo",
-            "Berlin",
-            "Barcelona",
-            "Beijing",
-            "Budapest",
-            "Cartagena",
-            "Rome",
-            "Milan",
-            "Turin",
-            "Belfast",
-            "Birmingham",
-            "Cambridge",
-            "Cardiff",
-            "Coventry",
-            "Durham",
-            "Lancaster",
-            "Leeds",
-            "Leicester",
-            "Lincoln",
-            "Liverpool",
-            "Nottingham"
+        cityList = ArrayList()
+        cityList.add("London")
+        cityList.add("Manchester")
+        cityList.add("Tokyo")
+        cityList.add("Berlin")
+        cityList.add("Barcelona")
+        cityList.add("Beijing")
+        cityList.add("Budapest")
+        cityList.add("Cartagena")
+        cityList.add("Rome")
+        cityList.add("Milan")
+        cityList.add("Belfast")
+        cityList.add("Birmingham")
+        cityList.add("Cambridge")
+        cityList.add("Cardiff")
+        cityList.add("Coventry")
 
-        )
+//            "",
+//            "",
+//            "",
+//            "",
+//            "",
+//            "Durham",
+//            "Lancaster",
+//            "Leeds",
+//            "Leicester",
+//            "Lincoln",
+//            "Liverpool",
+//            "Nottingham"
 
 
         // initializing list adapter and setting layout
@@ -70,22 +69,24 @@ class MainActivity : AppCompatActivity() {
 
         // on below line setting list
         // adapter to our list view.
-        City.adapter = listAdapter
-
+        city.adapter = listAdapter
         // on below line we are adding on query
         // listener for our search view.
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
+            androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 // on below line we are checking
                 // if query exist or not.
                 if (cityList.contains(query)) {
                     // if query exist within list we
                     // are filtering our list adapter.
+
                     listAdapter.filter.filter(query)
+
                 } else {
                     // if query is not present we are displaying
                     // a toast message as no data found..
-                    Toast.makeText(this@MainActivity, "No city found..", Toast.LENGTH_LONG)
+                    Toast.makeText(this@MainActivity, "No city found..", LENGTH_LONG)
                         .show()
                 }
                 return false
@@ -99,6 +100,15 @@ class MainActivity : AppCompatActivity() {
                 return false
             }
         })
+        city.onItemClickListener = AdapterView.OnItemClickListener() { parent, view, position, id ->
+            val selectedItem = parent.getItemAtPosition(position)
+            Toast.makeText(this, "Selected: ${selectedItem}", LENGTH_LONG).show()
+
+
+
+        }
     }
 
 }
+
+
