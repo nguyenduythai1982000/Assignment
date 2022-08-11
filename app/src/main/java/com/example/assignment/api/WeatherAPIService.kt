@@ -5,8 +5,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object WeatherAPIService {
     private var retrofit: Retrofit? = null
-    var BASE_URL = "https://api.openweathermap.org/data/2.5/"
-
+    var BASE_URL = "https://api.openweathermap.org"
 
     fun getApiInterface(): WeatherAPI?{
         if(retrofit == null){
@@ -14,7 +13,6 @@ object WeatherAPIService {
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
-
         }
         return retrofit!!.create(WeatherAPI::class.java)
     }

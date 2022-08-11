@@ -12,17 +12,19 @@ const val API_KEY = "bbf2282377b20d1781e8faf0457fb6fe"
 //https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}
 //https://api.openweathermap.org/data/2.5/weather?q=London&appid={API key}
 interface WeatherAPI {
-    @GET("weather")
+    @GET("data/2.5/weather")
     fun getCurrentWeather(
         @Query("lat") latitude: String,
         @Query("lon") longtitude: String,
         @Query("appid") API_KEY: String
     ):retrofit2.Call<WeatherModel>
 
-    @GET("weather")
+    @GET("data/2.5/weather")
     fun getCityWeather(
-        @Query("q") cityName: String,
+        @Query("q") country: String,
         @Query("appid") API_KEY: String
     ):Call<WeatherModel>
+
+
 
 }

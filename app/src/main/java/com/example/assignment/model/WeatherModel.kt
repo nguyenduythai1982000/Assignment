@@ -21,7 +21,7 @@ data class WeatherModel(
     @SerializedName("name")
     val name: String,
     @SerializedName("sys")
-    val sys: Sys,
+    val sys: List<Sys>,
     @SerializedName("timezone")
     val timezone: Int,
     @SerializedName("visibility")
